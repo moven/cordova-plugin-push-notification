@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	id="org.apache.cordova.plugins.PushNotification"
-	version="1.0">
+	id="org.movencorp.cordova.pushnotification"
+	version="0.0.1">
 
-	<name>PushNotification</name>
+  <name>Push Notification</name>
+  <description>Cordova Push Notification Plugin</description>
+  <license>Apache 2.0</license>
+  <keywords>cordova,push,notification</keywords>
 
-	<asset src="www/PushNotification.js" target="PushNotification.js" />
+  <js-module src="www/PushNotification.js" name="PushNotification">
+    <clobbers target="navigator.pushNotification" />
+  </js-module>
 
 	<!-- android -->
 	<platform name="android">
@@ -34,14 +40,16 @@
 				target-dir="org/apache/cordova/plugins/PushNotification" />
 	</platform>
 
-	<!-- ios -->
-	<platform name="ios">
-		<plugins-plist key="PushNotification" />
-
-		<header-file src="PushNotification.h" />
-
-		<source-file src="PushNotification.m" />
-	</platform>
+  <!-- ios -->
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="PushNotification">
+        <param name="ios-package" value="PushNotification" />
+      </feature>
+    </config-file>
+    <header-file src="src/ios/PushNotification.h" />
+    <source-file src="src/ios/PushNotification.m" />
+  </platform>
 
 </plugin>
 
