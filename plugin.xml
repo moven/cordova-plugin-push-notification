@@ -49,6 +49,8 @@
     </config-file>
     <header-file src="src/ios/PushNotification.h" />
     <source-file src="src/ios/PushNotification.m" />
+    <header-file src="src/ios/AppDelegate+Notification.h" />
+    <source-file src="src/ios/AppDelegate+Notification.m" />
   </platform>
 
 </plugin>
