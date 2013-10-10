@@ -87,9 +87,9 @@
   NSString *jsStatement = nil;
   NSData* jsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:0 error: &error];
   if (error != nil){
-      jsStatement = [NSString stringWithFormat:@"window.plugins.pushNotification.notificationCallback({error: %@});",[error localizedDescription]];
+      jsStatement = [NSString stringWithFormat:@"navigator.pushNotification.notificationCallback({error: %@});",[error localizedDescription]];
   }else{
-      jsStatement = [NSString stringWithFormat:@"window.plugins.pushNotification.notificationCallback(%@);", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+      jsStatement = [NSString stringWithFormat:@"navigator.pushNotification.notificationCallback(%@);", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
   }
 
   [self writeJavascript:jsStatement];
