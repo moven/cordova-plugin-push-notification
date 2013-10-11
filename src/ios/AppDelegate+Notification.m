@@ -36,6 +36,8 @@
   if(notification) {
     NSDictionary* userInfo = [notification userInfo];
     if(userInfo) {
+      NSDictionary* notif = [userInfo objectForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
+      if (notif) userInfo = notif;
       PushNotification *pushHandler = [self.viewController getCommandInstance:@"PushNotification"];
       NSMutableDictionary* mutableUserInfo = [userInfo mutableCopy];
       [mutableUserInfo setValue:@"1" forKey:@"applicationLaunchNotification"];
@@ -73,7 +75,14 @@
   } else {
     [mutableUserInfo setValue:@"0" forKey:@"applicationStateActive"];
     [mutableUserInfo setValue:[NSNumber numberWithDouble: [[NSDate date] timeIntervalSince1970]] forKey:@"timestamp"];
-    [pushHandler.pendingNotifications addObject:mutableUserInfo];
+
+    // js - pushHandler.pendingNotifications should only be used for notifications during cold start
+    // This doesn't work for opening a notification from the Notification Center while the app is open,
+    // as even though the appState is Inactive, the resume event is not fired.
+    // Calling didReceiveRemoteNotification works for all cases.
+    // [pushHandler.pendingNotifications addObject:mutableUserInfo];
+
+    [pushHandler didReceiveRemoteNotification:mutableUserInfo];
   }
 }
 
