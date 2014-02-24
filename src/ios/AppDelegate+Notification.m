@@ -42,6 +42,8 @@
       NSMutableDictionary* mutableUserInfo = [userInfo mutableCopy];
       [mutableUserInfo setValue:@"1" forKey:@"applicationLaunchNotification"];
       [mutableUserInfo setValue:@"0" forKey:@"applicationStateActive"];
+      [mutableUserInfo removeObjectForKey:@"UIApplicationLaunchOptionsURLKey"];
+      [mutableUserInfo setValue:[[userInfo objectForKey:@"UIApplicationLaunchOptionsURLKey"] absoluteString] forKey:@"UIApplicationLaunchOptionsURLKey"];
       [pushHandler.pendingNotifications addObject:mutableUserInfo];
     }
   }
